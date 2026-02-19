@@ -27,9 +27,6 @@ def get_session_manager(session_id: str, user_id: str):
     """Get a session manager for the given session and user ID."""
     settings = get_settings()
 
-    if settings.app_env == "local":
-        return FileSessionManager(session_id=session_id, sessions_dir=".sessions")
-
     if settings.bedrock_agentcore_memory_id:
         return AgentCoreMemorySessionManager(
             AgentCoreMemoryConfig(
@@ -41,4 +38,4 @@ def get_session_manager(session_id: str, user_id: str):
             settings.aws_region,
         )
 
-    return None
+    return FileSessionManager(session_id=session_id, sessions_dir=".sessions")

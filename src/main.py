@@ -21,7 +21,7 @@ async def invoke(payload, context):
             if "data" in event and isinstance(event["data"], str):
                 yield event["data"]
     finally:
-        if session_manager is not None:
+        if session_manager is not None and hasattr(session_manager, "close"):
             session_manager.close()
 
 
