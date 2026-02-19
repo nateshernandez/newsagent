@@ -23,6 +23,7 @@ def create_agent(
     model = BedrockModel(model_id="us.amazon.nova-2-lite-v1:0")
     agent_tools: list = [exa_mcp_client] + (tools or [])
     return Agent(
+        # hooks=[ExaApprovalHook()],
         model=model,
         session_manager=session_manager,
         system_prompt=SYSTEM_PROMPT,

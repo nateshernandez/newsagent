@@ -16,9 +16,13 @@ async def invoke(payload, context):
     agent = create_agent(session_manager=session_manager)
     stream = agent.stream_async(payload.get("prompt"))
 
-    async for event in stream:
-        if "data" in event and isinstance(event["data"], str):
-            yield event["data"]
+    try:
+        async for event in stream:
+            if "data" in event and isinstance(event["data"], str):
+                yield event["data"]
+    finally:
+        if session_manager is not None:
+            session_manager.close()
 
 
 if __name__ == "__main__":
