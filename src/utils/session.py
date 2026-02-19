@@ -13,10 +13,9 @@ from config import get_settings
 def _retrieval_config(user_id: str, session_id: str) -> dict:
     """Build retrieval config for AgentCore memory paths."""
     paths = [
-        (f"/facts/{user_id}/", 10, 0.4),
-        (f"/preferences/{user_id}/", 5, 0.5),
+        (f"/users/{user_id}/facts/", 10, 0.4),
+        (f"/users/{user_id}/preferences/", 5, 0.5),
         (f"/summaries/{user_id}/{session_id}/", 5, 0.4),
-        (f"/episodes/{user_id}/{session_id}/", 5, 0.4),
     ]
     return {
         path: RetrievalConfig(top_k=k, relevance_score=score)
